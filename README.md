@@ -1,5 +1,5 @@
 # Llama Reborn
-Acknowledgement: This project is based on the Carnegie Mellon University assignment(based on a previous [minbert-assignment](https://github.com/neubig/minbert-assignment))
+Acknowledgement: This project is based on the Carnegie Mellon University assignment (based on a previous [minbert-assignment](https://github.com/neubig/minbert-assignment))
 
 This is an attempt at developing a minimalist version of Llama2, part of Carnegie Mellon University's [CS11-711 Advanced NLP](https://cmu-l3.github.io/anlp-spring2025/).
 
@@ -7,26 +7,23 @@ In this project, I have attempted to implement some important components of the 
 
 ## Details
 
-The code to implement can be found in `llama.py`, `classifier.py`, `optimizer.py` and `rope.py`. You are reponsible for writing _core components_ of Llama2 (one of the leading open source language models). In doing so, you will gain a strong understanding of neural language modeling. We will load pretrained weights for your language model from `stories42M.pt`; an 8-layer, 42M parameter language model pretrained on the [TinyStories](https://arxiv.org/abs/2305.07759) dataset (a dataset of machine-generated children's stories). This model is small enough that it can be trained (slowly) without a GPU. You are encouraged to use Colab or a personal GPU machine (e.g. a Macbook) to be able to iterate more quickly.
+The model weights used are in `stories42M.pt`; an 8-layer, 42M parameter language model pretrained on the [TinyStories](https://arxiv.org/abs/2305.07759) dataset (a dataset of machine-generated children's stories). The architecture was implemented in the based on Meta's 2023 Llama 2 paper [https://arxiv.org/abs/2307.09288].
 
-Once you have implemented these components, you will test our your model in 3 settings:
-1) Generate a text completion (starting with the sentence `"I have wanted to see this thriller for a while, and it didn't disappoint. Keanu Reeves, playing the hero John Wick, is"`). You should see coherent, grammatical English being generated (though the content and topicality of the completion may be absurd, since this LM was pretrained exclusively on children's stories).
-2) Perform zero-shot, prompt-based sentiment analysis on two datasets (SST-5 and CFIMDB). This will give bad results (roughly equal to choosing a random target class).
-3) Perform task-specific finetuning of your Llama2 model, after implementing a classification head in `classifier.py`. This will give much stronger classification results.
-4) If you've done #1-3 well, you will get an A! However, since you've come this far, try implementing something new on top of your hand-written language modeling system! If your method provides strong empirical improvements or demonstrates exceptional creativity, you'll get an A+ on this assignment.
+Model performance was tested in 3 settings:
+1) Generate a text completion (starting with the sentence `"I have wanted to see this thriller for a while, and it didn't disappoint. Keanu Reeves, playing the hero John Wick, is"`). Coherent, grammatical English was generated, but the content and topicality of the completion was all but absurd, since this LM was pretrained exclusively on children's stories).
+2) Perform zero-shot, prompt-based sentiment analysis on two datasets (SST-5 and CFIMDB). This gave bad results (roughly equal to choosing a random target class).
+3) Perform task-specific finetuning of your Llama2 model, after implementing a classification head in `classifier.py`. This gave much stronger classification results.
 
-### Important Notes
-* Follow `setup.sh` to properly setup the environment, install dependencies and model weights.
-* There is a detailed description of the code structure in [structure.md](./structure.md), including a description of which parts you will need to implement.
-* You are only allowed to use libraries that are installed by `setup.sh`, no other external libraries are allowed (e.g., `transformers`).
-* The `data/cfimdb-test.txt` file provided to you does **not** contain gold-labels, and contains a placeholder negative (-1) label. Evaluating your code against this set will show lower accuracies so do not worry if the numbers don't make sense.
-* We will run your code with commands below (under "Reference outputs/accuracies"), so make sure that whatever your best results are reproducible using these commands.
-    * Do not change any of the existing command options (including defaults) or add any new required parameters
+### Notes
+* Follow `setup.sh` to setup the environment, install dependencies and model weights.
+* There is a detailed description of the code structure in [structure.md](./structure.md), including a description of which parts need implementing.
+* Only libraries used were installed by `setup.sh`, no other external libraries were used (e.g., `transformers`).
+* The `data/cfimdb-test.txt` file does **not** contain gold-labels, and contains a placeholder negative (-1) label. Evaluating your code against this set will show lower accuracies so do not worry if the numbers don't make sense.
 
 ## Reference outputs/accuracies: 
 
 *Text Continuation* (`python run_llama.py --option generate`)
-You should see continuations of the sentence `I have wanted to see this thriller for a while, and it didn't disappoint. Keanu Reeves, playing the hero John Wick, is...`. We will generate two continuations - one with temperature 0.0 (which should have a reasonably coherent, if unusual, completion) and one with temperature 1.0 (which is likely to be logically inconsistent and may contain some coherence or grammar errors).
+You should see continuations of the sentence `I have wanted to see this thriller for a while, and it didn't disappoint. Keanu Reeves, playing the hero John Wick, is...`. Generate two continuations - one with temperature 0.0 (which should have a reasonably coherent, if unusual, completion) and one with temperature 1.0 (which is likely to be logically inconsistent and may contain some coherence or grammar errors).
 
 *Zero Shot Prompting*
 Zero-Shot Prompting for SST:
