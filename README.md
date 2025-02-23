@@ -1,14 +1,12 @@
-# Min-Llama Assignment
-Acknowledgement: This assignment is based on the corresponding assignment of Fall 2024 offering, and the previous version by Vijay Viswanathan (based on the previous [minbert-assignment](https://github.com/neubig/minbert-assignment))
+# Llama Reborn
+Acknowledgement: This project is based on the Carnegie Mellon University assignment(based on a previous [minbert-assignment](https://github.com/neubig/minbert-assignment))
 
-This is an exercise in developing a minimalist version of Llama2, part of Carnegie Mellon University's [CS11-711 Advanced NLP](https://cmu-l3.github.io/anlp-spring2025/).
+This is an attempt at developing a minimalist version of Llama2, part of Carnegie Mellon University's [CS11-711 Advanced NLP](https://cmu-l3.github.io/anlp-spring2025/).
 
-In this assignment, you will implement some important components of the Llama2 model to better understanding its architecture. 
-You will then perform sentence classification on ``sst`` dataset and ``cfimdb`` dataset with this model.
+In this project, I have attempted to implement some important components of the Llama2 model to better understanding its architecture, and perform text generation on a custom prompt, as well as sentence classification on ``sst`` dataset and ``cfimdb`` dataset with this model.
 
-## Assignment Details
+## Details
 
-### Your task
 The code to implement can be found in `llama.py`, `classifier.py`, `optimizer.py` and `rope.py`. You are reponsible for writing _core components_ of Llama2 (one of the leading open source language models). In doing so, you will gain a strong understanding of neural language modeling. We will load pretrained weights for your language model from `stories42M.pt`; an 8-layer, 42M parameter language model pretrained on the [TinyStories](https://arxiv.org/abs/2305.07759) dataset (a dataset of machine-generated children's stories). This model is small enough that it can be trained (slowly) without a GPU. You are encouraged to use Colab or a personal GPU machine (e.g. a Macbook) to be able to iterate more quickly.
 
 Once you have implemented these components, you will test our your model in 3 settings:
