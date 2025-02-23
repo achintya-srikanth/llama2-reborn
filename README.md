@@ -7,7 +7,7 @@ In this project, I have attempted to implement some important components of the 
 
 ## Details
 
-The model weights used are in `stories42M.pt`; an 8-layer, 42M parameter language model pretrained on the [TinyStories](https://arxiv.org/abs/2305.07759) dataset (a dataset of machine-generated children's stories). The architecture was implemented in the based on Meta's 2023 Llama 2 paper [https://arxiv.org/abs/2307.09288].
+The model weights used are in `stories42M.pt`; an 8-layer, 42M parameter language model pretrained on the [TinyStories](https://arxiv.org/abs/2305.07759) dataset (a dataset of machine-generated children's stories). The architecture was implemented based on Meta's 2023 Llama 2 paper [https://arxiv.org/abs/2307.09288].
 
 Model performance was tested in 3 settings:
 1) Generate a text completion (starting with the sentence `"I have wanted to see this thriller for a while, and it didn't disappoint. Keanu Reeves, playing the hero John Wick, is"`). Coherent, grammatical English was generated, but the content and topicality of the completion was all but absurd, since this LM was pretrained exclusively on children's stories).
