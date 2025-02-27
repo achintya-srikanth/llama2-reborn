@@ -1,18 +1,13 @@
-# Structure of LlamaHW
+# Structure of Llama
 
 ## llama.py
-This file contains the Llama2 model whose backbone is the [transformer](https://arxiv.org/pdf/1706.03762.pdf). We recommend walking through Section 3 of the paper to understand each component of the transformer. 
+This file contains the Llama2 model whose backbone is the [transformer](https://arxiv.org/pdf/1706.03762.pdf).
 
 ### Attention
-The multi-head attention layer of the transformer. This layer maps a query and a set of key-value pairs to an output. The output is calculated as the weighted sum of the values, where the weight of each value is computed by a function that takes the query and the corresponding key. To implement this layer, you can:
-1. linearly project the queries, keys, and values with their corresponding linear layers
-2. split the vectors for multi-head attention
-3. follow the equation to compute the attended output of each head
-4. concatenate multi-head attention outputs to recover the original shape
-
+The multi-head attention layer of the transformer. This layer maps a query and a set of key-value pairs to an output. The output is calculated as the weighted sum of the values, where the weight of each value is computed by a function that takes the query and the corresponding key.
 $$Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d_k}})V$$
 
-Llama2 uses a modified version of this procedure called [Grouped-Query Attention](https://arxiv.org/abs/2305.13245) where, instead of each attention head having its own "query", "key", and "vector" head, some groups of "query" heads share the same "key" and "vector" heads. To simplify your implementation, we've taken care of steps #1, 2, and 4 here; you only need to follow the equation to compute the attended output of each head.
+Llama2 uses a modified version of this procedure called [Grouped-Query Attention](https://arxiv.org/abs/2305.13245) where, instead of each attention head having its own "query", "key", and "vector" head, some groups of "query" heads share the same "key" and "vector" heads.
 
 ### LlamaLayer
 This corresponds to one transformer layer which has 
@@ -34,22 +29,6 @@ The desired outputs are
 1. ```logits```: logits (output scores) over the vocabulary, predicting the next possible token at each point
 2. ```hidden_state```: the final hidden state at each token in the given document
 
-### To be implemented
-Components that require your implementations are comment with ```#todo```. The detailed instructions can be found in their corresponding code blocks
-* ```llama.Attention.forward```
-* ```llama.RMSNorm.norm```
-* ```llama.Llama.forward```
-* ```llama.Llama.generate```
-* ```rope.apply_rotary_emb``` (this one may be tricky! you can use `rope_test.py` to test your implementation)
-* ```optimizer.AdamW.step```
-* ```classifier.LlamaEmbeddingClassifier.forward```
-
-*ATTENTION:* you are free to re-organize the functions inside each class, but please don't change the variable names that correspond to Llama2 parameters. The change to these variable names will fail to load the pre-trained weights.
-
-### Sanity check (Llama forward pass integration test)
-We provide a sanity check function at sanity_check.py to test your Llama implementation. It will reload two embeddings we computed with our reference implementation and check whether your implementation outputs match ours.
-
-
 ## classifier.py
 This file contains the pipeline to 
 * load a pretrained model
@@ -58,8 +37,7 @@ This file contains the pipeline to
 * feed in the encoded representations for the sentence classification task
 * fine-tune the Llama2 model on the downstream tasks (e.g. sentence classification)
 
-
-### LlamaSentClassifier (to be implemented)
+### LlamaSentClassifier
 This class is used to
 * encode the sentences using Llama2 to obtain the hidden representation from the final word of the sentence.
 * classify the sentence by applying dropout to the pooled-output and project it using a linear layer.
@@ -72,24 +50,20 @@ There are a few slight variations on AdamW, pleae note the following:
 - The learning rate is incorporated into the weight decay update (unlike Loshchiloc & Hutter (2017)).
 - There is no learning rate schedule.
 
-You also need to add support for gradient clipping. We suggest to explore different values of gradient norm threshold and submit with the one with best results. 
-
-You can check your optimizer implementation using `optimizer_test.py`.
-
 ## rope.py (to be implemented)
-Here, you will implement rotary positional embeddings. This may be tricky; you can refer to slide 22 in https://phontron.com/class/anlp2024/assets/slides/anlp-05-transformers.pdf and Section 3 in https://arxiv.org/abs/2104.09864 for reference. To enable you to test this component modularly, we've provided a unit test at `RoPE_test.py`
+Rotary positional embeddings implemented. This may be tricky; you can refer to slide 22 in https://phontron.com/class/anlp2024/assets/slides/anlp-05-transformers.pdf and Section 3 in https://arxiv.org/abs/2104.09864 for reference. To enable you to test this component modularly, we've provided a unit test at `RoPE_test.py`
 
 ## base_llama.py
 This is the base class for the Llama model. You won't need to modify this file in this assignment.
 
 ## tokenizer.py
-This is the tokenizer we will use. You won't need to modify this file in this assignment.
+This is the tokenizer we will use.
 
 ## config.py
-This is where the configuration class is defined. You won't need to modify this file in this assignment.
+This is where the configuration class is defined.
 
 ## utils.py
-This file contains utility functions for various purpose. You won't need to modify this file in this assignment.
+This file contains utility functions for various purposes.
  
 ## Reference
 [Vaswani el at. + 2017] Attention is all you need https://arxiv.org/abs/1706.03762
