@@ -51,13 +51,13 @@ There are a few slight variations on AdamW, pleae note the following:
 - There is no learning rate schedule.
 
 ## rope.py (to be implemented)
-Rotary positional embeddings implemented. This may be tricky; you can refer to slide 22 in https://phontron.com/class/anlp2024/assets/slides/anlp-05-transformers.pdf and Section 3 in https://arxiv.org/abs/2104.09864 for reference. To enable you to test this component modularly, we've provided a unit test at `RoPE_test.py`
+Rotary positional embeddings implemented here.
 
 ## base_llama.py
-This is the base class for the Llama model. You won't need to modify this file in this assignment.
+This is the base class for the Llama model.
 
 ## tokenizer.py
-This is the tokenizer we will use.
+This is the tokenizer used.
 
 ## config.py
 This is where the configuration class is defined.
